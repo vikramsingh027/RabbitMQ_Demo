@@ -1,10 +1,11 @@
-// publish/subscriber model
-//Sending messages to many consumers at once
+//routing model
+//here exchange type is 'direct'
+// Receiving messages selectively
 const amqp = require("amqplib");
 
-const EXCHANGE_NAME = "logs";
-const EXCHANGE_TYPE = "fanout";
-const QUEUE_NAME = "";
+const EXCHANGE_NAME = "direct_logs";
+const EXCHANGE_TYPE = "direct";
+const QUEUE_NAME = "test_queue";
 
 const connectQueue = async () => {
   const connection = await amqp.connect("amqp://localhost");
@@ -14,10 +15,10 @@ const connectQueue = async () => {
 
   const q = await channel.assertQueue(QUEUE_NAME);
 
-  const BINDING_KEY = "";
+  const BINDING_KEY = "black";
   await channel.bindQueue(q.queue, EXCHANGE_NAME, BINDING_KEY);
 
-  channel.consume(q.queue, (msg) => {
+  await channel.consume(q.queue, (msg) => {
     if (msg) {
       console.log(msg.content.toString());
       channel.ack(msg);

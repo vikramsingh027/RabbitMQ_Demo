@@ -1,3 +1,4 @@
+//simple model for demo purpose
 const amqplib = require("amqplib");
 
 const connectQueue = async function () {

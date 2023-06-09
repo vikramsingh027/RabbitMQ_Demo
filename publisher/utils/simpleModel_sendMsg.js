@@ -1,3 +1,5 @@
+//sending message directly to queue
+//It's just a learning demo
 const amqplib = require("amqplib");
 
 const connectQueue = async () => {

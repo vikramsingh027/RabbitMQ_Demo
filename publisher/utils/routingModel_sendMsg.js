@@ -1,12 +1,10 @@
-// publish/subscriber model
-//Sending messages to many consumers at once
-//here exchange type is 'fanout'
+//routing model
+//here exchange type is 'direct'
 const amqp = require("amqplib");
 
-const EXCHANGE_NAME = "logs";
-const EXCHANGE_TYPE = "fanout";
-const QUEUE_NAME = "";
-
+const EXCHANGE_NAME = "direct_logs";
+const EXCHANGE_TYPE = "direct";
+const ROUTING_KEY = "black";
 const connectQueue = async () => {
   const connection = await amqp.connect("amqp://localhost");
   const channel = await connection.createChannel();
@@ -15,8 +13,8 @@ const connectQueue = async () => {
 
   await channel.publish(
     EXCHANGE_NAME,
-    QUEUE_NAME,
-    Buffer.from("hello, sending messages to all the queues")
+    ROUTING_KEY,
+    Buffer.from("hey, sending messages to queues with binding key 'black'")
   );
 };
 
