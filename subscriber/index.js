@@ -1,6 +1,6 @@
 const express = require("express");
 
-const connectQueue = require("./utils/receive");
+const connectQueue = require("./utils/pubSubModel_receiveMsg");
 
 const setupAndStartServer = async function () {
   const app = express();
